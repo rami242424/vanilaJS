@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+  <title>Number Game</title>
+</head>
+<body>
+
+  <label for="maxNumber">최대값 설정: </label>
+  <input type="number" id="maxNumber" min="1">
+  <button onclick="startGame()">게임 시작</button>
+
+  <h3 class="hidden" id="userNumber" min="1"></h3>
+  <button class="hidden" onclick="generateRandomNumber()">Play</button>
+
+  <h3 class="hidden" id="randomNumber"></h3>
+  <p class="hidden" id="result"></p>
+
+  <script>
+    let maxNumber;
+    let userNumber;
+
+    function startGame() {
+      maxNumber = parseInt(document.getElementById("maxNumber").value);
+
+      if (isNaN(maxNumber) || maxNumber <= 0) {
+        alert("올바른 숫자를 입력하세요.");
+        return;
+      }
+
+      userNumber = Math.floor(Math.random() * maxNumber) + 1;
+
+      const userNumberElement = document.getElementById("userNumber");
+      userNumberElement.textContent = `선택한 숫자: ${userNumber}`;
+      userNumberElement.classList.remove("hidden");
+
+      const playButton = document.querySelector("#userNumber + button");
+      playButton.classList.remove("hidden");
+    }
+
+    function generateRandomNumber() {
+      const randomNumber = Math.floor(Math.random() * maxNumber) + 1;
+
+      const randomNumberElement = document.getElementById("randomNumber");
+      randomNumberElement.textContent = `랜덤 숫자: ${randomNumber}`;
+      randomNumberElement.classList.remove("hidden");
+
+      const resultElement = document.getElementById("result");
+
+      if (userNumber === randomNumber) {
+        resultElement.textContent = "You won!";
+      } else {
+        resultElement.textContent = "Try again!";
+      }
+
+      resultElement.classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
